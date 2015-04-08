@@ -1,6 +1,15 @@
 import math
 from tower_bullet import Bullet
 
+class Player():
+    def __init__(self):
+        self.health = 10
+        self.basehp = self.health
+        self.money = 300
+        self.basemoney = self.money
+        self.wave = 0
+
+
 class Tower:
     def __init__(self, fire_rate, fire_range, fire_power, fire_speed, tower_type):
         self.fire_rate      = fire_rate  # float, shots per second

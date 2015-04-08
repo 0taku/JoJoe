@@ -7,6 +7,7 @@ import pygame.locals
 import math
 import random
 import game_mouse
+import tower_tower
 import tower_data
 from tower_configuration import g_TOWER_COLORS
 
@@ -124,12 +125,11 @@ class Tower(game_mouse.Game):
         surface.blit(textobj, textrect)
         return
 
+
     def drawBackground(self, surface):
         rect = pygame.Rect(0,0, self.map_width, self.map_height)
         surface.fill( (200, 200, 255), rect)
         return
-
-    def drawHp(self, surface, text, x, y, color)
         
 
     def drawBullets(self, surface):
