@@ -1,8 +1,10 @@
 import random
 import math
 from tower_configuration import g_BADDIE_WIGGLE,g_BADDIE_MAX_WIGGLE
-
+from tower_tower import Player
 EPSILON = 0.00001
+
+
 
 class Baddie:
 
@@ -18,6 +20,7 @@ class Baddie:
         self.dy = 0.
         self.pdx = 0.
         self.pdy = 0.
+        self.finished = False
         return
 
     def getPosition(self):
@@ -85,6 +88,6 @@ class Baddie:
         
         # off the map border
         if self.x < 0 or self.x > width or self.y < 0 or self.y > height:
+            self.finished = True
             self.alive = False
-            
         return

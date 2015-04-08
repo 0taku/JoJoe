@@ -57,6 +57,13 @@ def vector(p1, p2):
     
 
 
+class Player:
+    def __init__(self, hp, money):
+        self.health = 10
+        self.basehp = self.health
+        self.money = 300
+        self.basemoney = self.money
+        self.wave = 0
 
     
 
@@ -69,6 +76,7 @@ class TowerData:
         self.map       = map_object
         self.tower_types = g_ALL_TOWER_TYPES
         self.newGame()
+        self.player = Player(10, 300)
         return
 
     def newGame(self):
@@ -246,6 +254,10 @@ class TowerData:
         # move the baddies
         for b in self.baddies:
             b.evolve(dt, self.map.getMap(), self.width, self.height)
+            if b.finished:
+                self.player.health -= 1
+                if self.player.health <= 0:
+                    quit()
 
         # check for bullet-baddie collisions
         new_dead = self.collisions()
