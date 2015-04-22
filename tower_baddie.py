@@ -1,19 +1,19 @@
 import random
 import math
 from tower_configuration import g_BADDIE_WIGGLE,g_BADDIE_MAX_WIGGLE
-from tower_tower import Player
 EPSILON = 0.00001
 
 
 
 class Baddie:
 
-    def __init__(self, x, y, speed, hp, radius):
+    def __init__(self, x, y, speed, hp, radius, givecash):
         self.x = x
         self.y = y
         self.speed = speed
         self.hp = hp
         self.radius = radius
+        self.givecash = givecash
         self.alive = True
         self.distance = 0.
         self.dx = 0.

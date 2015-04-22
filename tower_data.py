@@ -220,6 +220,8 @@ class TowerData:
                     bad.takeDamage(bul.getPower())
                     if not bad.getAlive():
                         new_dead += 1
+                        player.cash += 10
+
                     break
         return new_dead
 
@@ -231,8 +233,9 @@ class TowerData:
             (x, y) = random.choice(self.baddie_spawns)
             speed = random.random() * 2. + 4.
             hp = 10
+            cash = 10
             radius = 1.0
-            self.baddies.append( Baddie(x, y, speed, hp, radius) )
+            self.baddies.append( Baddie(x, y, speed, hp, radius, cash) )
         return
     
     # process one frame of action

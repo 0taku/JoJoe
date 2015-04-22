@@ -107,6 +107,11 @@ class Tower(game_mouse.Game):
             
         return
 
+    def draw(self, surface):
+        self.drawTextLeft(surface, "@@@@@@@@@@@@@@@@@@@@@!", 410, 150)
+        return
+
+
     # Draws text left justified at "x" using "The Font".
     # The bottom of the text is displayed at "y".
     def drawTextLeft(self, surface, text, x, y):
