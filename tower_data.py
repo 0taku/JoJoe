@@ -58,9 +58,9 @@ def vector(p1, p2):
 
 
 class Player:
-    def __init__(self, hp, money):
-        self.health = 10
-        self.basehp = self.health
+    def __init__(self, playerhealth, money):
+        self.playerhealth = 10
+        self.baseplayerhealth = self.playerhealth
         self.money = 300
         self.basemoney = self.money
         self.wave = 0
@@ -111,7 +111,7 @@ class TowerData:
     
     # add tower by type object (tower_type)
     def addNewTowerFromType(self, tower_type, x, y):
-        if not self.towerPositionIsLegal(tower_type, x, y):
+        if not self.towerPositionIsLegal(tower_type, x, y) or self.player.money > sfdafdas:
             return
         t = tower_type.newTower()
         t.setMap(self.map)
@@ -220,7 +220,7 @@ class TowerData:
                     bad.takeDamage(bul.getPower())
                     if not bad.getAlive():
                         new_dead += 1
-                        player.cash += 10
+                        self.player.money += 10
 
                     break
         return new_dead

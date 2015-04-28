@@ -75,3 +75,7 @@ class Game:
 
             pygame.display.flip()
 
+    def draw(self, surface):
+        self.drawTextLeft(surface, "@@@@@@@@@@@@@@@@@@@@@@", 410, 150)
+        return
+

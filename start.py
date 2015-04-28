@@ -46,6 +46,7 @@ class Tower(game_mouse.Game):
                                  30)
         self.grid_size = grid_size
         self.data = tower_data.TowerData(width, height, map_object)
+       
 
         self.sound_on   = True
         self.pause      = False
@@ -58,7 +59,7 @@ class Tower(game_mouse.Game):
 
         self.font_height = 12
         self.font = pygame.font.SysFont("Courier New", self.font_height)
-        
+        self.font2 = pygame.font.SysFont("Courier New", 30)
         self.color = [ (0, 0, 0), # TEXT_COLOR
                        ]
 
@@ -107,13 +108,21 @@ class Tower(game_mouse.Game):
             
         return
 
-    def draw(self, surface):
-        self.drawTextLeft(surface, "@@@@@@@@@@@@@@@@@@@@@!", 410, 150)
+
+
+    def drawScore(self, surface):
+        self.drawthetext(surface, "Money %s" % self.data.player.money, 50, 50)
         return
 
+    
 
-    # Draws text left justified at "x" using "The Font".
-    # The bottom of the text is displayed at "y".
+    def drawthetext(self, surface, text, x, y):
+        textobj = self.font2.render(text, False, self.color[TEXT_COLOR])
+        textrect = textobj.get_rect()
+        textrect.bottomleft = (x, y)
+        surface.blit(textobj, textrect)
+        return
+
     def drawTextLeft(self, surface, text, x, y):
         textobj = self.font.render(text, False, self.color[TEXT_COLOR])
         textrect = textobj.get_rect()
@@ -129,6 +138,7 @@ class Tower(game_mouse.Game):
         textrect.bottomright = (x, y)
         surface.blit(textobj, textrect)
         return
+
 
 
     def drawBackground(self, surface):
@@ -321,6 +331,7 @@ class Tower(game_mouse.Game):
         self.drawBullets(surface)
         self.drawMenu(surface)
         self.drawDragTower(surface)
+        self.drawScore(surface)
         return
 
 def main():
