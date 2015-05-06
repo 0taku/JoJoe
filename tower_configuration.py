@@ -23,4 +23,4 @@ g_BADDIE_MAX_WIGGLE = 0.1
 
 
 # Baddie spawn rate in baddies per second
-g_BADDIE_SPAWN_RATE = 5.
+g_BADDIE_SPAWN_RATE = 1.

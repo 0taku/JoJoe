@@ -77,6 +77,9 @@ class TowerData:
         self.tower_types = g_ALL_TOWER_TYPES
         self.newGame()
         self.player = Player(10, 300)
+        self.maximumbaddies = 5
+        self.baddiecount = 0
+        self.numberofbaddies = 0
         return
 
     def newGame(self):
@@ -111,12 +114,14 @@ class TowerData:
     
     # add tower by type object (tower_type)
     def addNewTowerFromType(self, tower_type, x, y):
-        if not self.towerPositionIsLegal(tower_type, x, y) or self.player.money > sfdafdas:
+        if not self.towerPositionIsLegal(tower_type, x, y) or self.player.money < tower_type.cost:
             return
         t = tower_type.newTower()
         t.setMap(self.map)
         t.move(x, y)
         self.towers.append(t)
+        self.player.money -= tower_type.cost
+
         return
 
     def getWidth(self):
@@ -220,8 +225,8 @@ class TowerData:
                     bad.takeDamage(bul.getPower())
                     if not bad.getAlive():
                         new_dead += 1
-                        self.player.money += 10
-
+                        self.player.money += 50
+                        self.numberofbaddies -= 1
                     break
         return new_dead
 
@@ -232,12 +237,23 @@ class TowerData:
         if random.random() < g_BADDIE_SPAWN_RATE * dt:
             (x, y) = random.choice(self.baddie_spawns)
             speed = random.random() * 2. + 4.
-            hp = 10
+            hp = 1
             cash = 10
             radius = 1.0
             self.baddies.append( Baddie(x, y, speed, hp, radius, cash) )
+            self.baddiecount += 1
+            self.numberofbaddies += 1
         return
+     
     
+    def waveClick(self):
+        self.player.wave += 1
+        self.baddiecount -= self.baddiecount
+        self.maximumbaddies += 5
+        print self.baddiecount
+        print self.maximumbaddies
+               
+
     # process one frame of action
     def evolve(self, dt):
 
@@ -251,15 +267,20 @@ class TowerData:
         for b in self.bullets:
             b.evolve(dt, self.width, self.height)
 
-        # create more baddies
-        self.spawnBaddies(dt)
-        
+        if self.player.wave > 0:
+            if self.baddiecount < self.maximumbaddies:
+               self.spawnBaddies(dt)
+
+
+
+
+
         # move the baddies
         for b in self.baddies:
             b.evolve(dt, self.map.getMap(), self.width, self.height)
             if b.finished:
-                self.player.health -= 1
-                if self.player.health <= 0:
+                self.player.playerhealth -= 1
+                if self.player.playerhealth <= 0:
                     quit()
 
         # check for bullet-baddie collisions

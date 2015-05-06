@@ -95,6 +95,15 @@ class Tower(game_mouse.Game):
                                               int(self.mouse_x/self.grid_size),
                                               int(self.mouse_y/self.grid_size))
                 self.drag_tower_type = None
+       
+
+        #pygame.draw.rect(surface, (0,0,0), (400, 450, 3, 3))
+
+        if 1 in newbuttons:
+            if 450 <= x <= 520 and 400 <= y <= 414:
+                if self.data.numberofbaddies == 0:
+                    self.data.waveClick()
+
         
         t2 = pygame.time.get_ticks()
         dt = (t2 - self.t1)/1000.
@@ -111,10 +120,15 @@ class Tower(game_mouse.Game):
 
 
     def drawScore(self, surface):
-        self.drawthetext(surface, "Money %s" % self.data.player.money, 50, 50)
+        self.drawthetext(surface, "Money %s" % self.data.player.money, 50, 35)
+        self.drawthetext(surface, "Lifes %s" % self.data.player.playerhealth, 50, 75)
         return
 
-    
+    def drawWave(self, surface):
+        rect = pygame.Rect(400, 420, 215, 25)
+        pygame.draw.rect(surface, (250, 0, 0), rect, 0)
+        self.drawthetext(surface, "Wave %s Start" % self.data.player.wave, 400, 450)    
+        return
 
     def drawthetext(self, surface, text, x, y):
         textobj = self.font2.render(text, False, self.color[TEXT_COLOR])
@@ -212,6 +226,7 @@ class Tower(game_mouse.Game):
                                  (x+w/2+int(dx*self.grid_size/2), y+h/2+int(dy*self.grid_size/2)))
         return
 
+
     def drawTowerButton(self, surface, x, y, w, h, tt):
         rect = pygame.Rect(x, y, w, h)
         pygame.draw.rect(surface, (0, 0, 0), rect, 1)
@@ -253,6 +268,8 @@ class Tower(game_mouse.Game):
         self.drawTextLeft(surface, s, fx, fy)
         
         return
+
+
 
     def clickToTowerMenu(self, click_x, click_y):
         tts = self.data.getTowerTypes()
@@ -324,7 +341,7 @@ class Tower(game_mouse.Game):
     
     def paint(self, surface):
         self.drawBackground(surface)
-        self.drawGrid(surface)
+        #self.drawGrid(surface)
         self.drawPath(surface)
         self.drawTowers(surface)
         self.drawBaddies(surface)
@@ -332,6 +349,7 @@ class Tower(game_mouse.Game):
         self.drawMenu(surface)
         self.drawDragTower(surface)
         self.drawScore(surface)
+        self.drawWave(surface)
         return
 
 def main():
